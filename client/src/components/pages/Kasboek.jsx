@@ -119,50 +119,39 @@ const oneMonthBeforeToday = new Date().setMonth(today.getMonth() - 1);
 
 export default function Kasboek() {
   const [filterValues, setFilterValues] = useState({
-    startDate: oneMonthBeforeToday,
+    startDate: new Date(oneMonthBeforeToday),
     endDate: today,
   });
   const [fullkasboek, setFullKasboek] = useState([]);
   const [filteredkasboek, setFilteredKasboek] = useState([]);
 
   useEffect(() => {
-    const rijen = api.getKasboek().then((rijen) => {
-      rijen.map((rij) => {
-        rij.dateTypeDate = new Date(rij.datum_dateformat);
+    api.getKasboek().then((rijen) => {
+      rijen = rijen.map((rij) => {
+        const d1 = rij.datum.trim().split(" ")[1].split("/");
+        rij.dateTypeDate = new Date(d1[2], parseInt(d1[1]) - 1, d1[0]);
         return rij;
       });
-      console.log("rij", rijen[0]);
-      setFilteredKasboek(rijen);
+      setFilteredKasboek(rijen.filter(filterDates));
       setFullKasboek(rijen);
     });
     return () => {};
   }, []);
 
   useEffect(() => {
-    // setFilteredKasboek(fullkasboek.filter(filterDates));
+    setFilteredKasboek(fullkasboek.filter(filterDates));
     return () => {};
   }, [filterValues]);
 
   //#region Date Functions
 
-  var date_diff_indays = function (dt1, dt2) {
-    if (typeof dt1 !== Date) {
-      dt1 = new Date(dt1);
-    }
-    if (typeof dt2 !== Date) {
-      dt2 = new Date(dt2);
-    }
-    return Math.floor(
-      (Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) -
-        Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate())) /
-        (1000 * 60 * 60 * 24)
-    );
-  };
-
   const filterDates = ({ dateTypeDate }) => {
+    const from = filterValues.startDate;
+    const to = filterValues.endDate;
+    const check = dateTypeDate;
     return (
-      date_diff_indays(dateTypeDate, filterValues.endDate) >= 0 &&
-      date_diff_indays(dateTypeDate, filterValues.startDate) <= 0
+      check.getTime() <= to.getTime() + 86400000 &&
+      check.getTime() >= from.getTime() - 86400000
     );
   };
 
@@ -183,11 +172,7 @@ export default function Kasboek() {
 
   const handleDownload = () => {
     const rowsToExport = filteredkasboek
-      .filter(
-        ({ dateTypeDate }) =>
-          dateTypeDate < filterValues.endDate &&
-          dateTypeDate > filterValues.startDate
-      )
+      .filter(filterDates)
       .sort(sortRowOnDate);
     const allowedColumns = headCells.map(({ id }) => id);
     createCSVfromJSON(rowsToExport, allowedColumns);
@@ -198,7 +183,7 @@ export default function Kasboek() {
       <Filter filterValues={filterValues} setFilterValues={setFilterValues}>
         <Fab
           color="primary"
-          size="small"
+          size="large"
           variant="extended"
           onClick={handleDownload}
         >

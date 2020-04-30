@@ -128,11 +128,24 @@ export default function TableTemplate(props) {
 
   // if no info render the spinner
   if (!rows) {
-    return <ProgressSpinner waittext={`laden van ${tableName} tabel`} />;
+    return (
+      <ProgressSpinner waittext={`aan het laden van ${tableName} tabel`} />
+    );
   }
 
   if (!rows.length) {
-    return <ProgressSpinner waittext={`geen info in ${tableName} tabel`} />;
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "500px",
+        }}
+      >
+        geen info in voor huidige datums
+      </div>
+    );
   }
 
   return (

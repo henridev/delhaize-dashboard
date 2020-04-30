@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "preinstall": "echo --- preinstall --- && cd server && npm install && cd ../client && npm install && npm run build && cd ..",
+    "preinstall": "echo --- preinstall --- && cd server && npm install  && cd ../client && npm install && npm run build && cd ..",
     "start": "echo --- start --- && cd server && npm run start",
+    "migrate": "sequelize db:migrate",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm start"
   },
@@ -18,6 +19,8 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "pg": "^8.0.3",
+    "sequelize-cli": "^5.5.1"
   }
 }

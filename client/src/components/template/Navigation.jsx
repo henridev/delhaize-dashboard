@@ -100,27 +100,22 @@ function PersistentDrawerLeft(props) {
         </div>
         <Divider />
         <List>
-          {["bestellingen broodjes", "bestellingen schotels", "kasboek"].map(
-            (text, index) => {
-              if (index === 1) {
-                return;
-              }
-              return (
-                <ListItem
-                  button
-                  key={text}
-                  onClick={handleRoute.bind(this, text)}
-                >
-                  <ListItemIcon>
-                    {index === 0 ? <ViewListIcon /> : null}
-                    {index === 1 ? <ViewListIcon /> : null}
-                    {index === 2 ? <ViewListIcon /> : null}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              );
-            }
-          )}
+          {["kasboek"].map((text, index) => {
+            return (
+              <ListItem
+                button
+                key={text}
+                onClick={handleRoute.bind(this, text)}
+              >
+                <ListItemIcon>
+                  {index === 0 ? <ViewListIcon /> : null}
+                  {index === 1 ? <ViewListIcon /> : null}
+                  {index === 2 ? <ViewListIcon /> : null}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            );
+          })}
         </List>
         <Divider />
         <List>

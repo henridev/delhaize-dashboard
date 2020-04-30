@@ -82,7 +82,7 @@ function convertDateTime(A, B, orderBy) {
   if (orderBy === "datum") {
     const datePartsA = A.split(" ")[1].split("/");
     const datePartsB = B.split(" ")[1].split("/");
-    console.log("datePartsA", datePartsA);
+
     // month is 0-based, that's why we need dataParts[1] - 1
     A = new Date(+datePartsA[2], datePartsA[1] - 1, +datePartsA[0]);
     B = new Date(+datePartsB[2], datePartsB[1] - 1, +datePartsB[0]);

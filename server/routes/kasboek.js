@@ -19,6 +19,20 @@ router.post("/kasboek", function (req, res) {
   });
 });
 
-router.delete("/:kasboekId", (req, res, next) => {});
+router.delete("/:kasboekId", (req, res, next) => {
+  const id = req.params.kasboekId;
+  db.Kasboek.destroy({
+    where: { id: id },
+  })
+    .then(() => {
+      res
+        .status(200)
+        .json({ msg: "Deleted Successfully -> kasboekId Id = " + id });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ msg: "error", details: err });
+    });
+});
 
 module.exports = router;
