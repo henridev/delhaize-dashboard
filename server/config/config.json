@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Henri^^123",
+    "database": "delhaizedoknoord",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false,
+    "use_env_variable": "DATABASE_URL"
+  }
+}
