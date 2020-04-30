@@ -44,7 +44,6 @@ export default function UploadKasboek(props) {
       const ws = wb.Sheets[wsname];
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 }); // convert
       const kasrowJSON = creatJSONfromCSV(data);
-      console.log("handle file");
       api
         .postCSV(kasrowJSON)
         .then((res) => {

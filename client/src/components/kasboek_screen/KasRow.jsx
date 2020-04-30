@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, TableCell, TableRow, Checkbox } from "../../modules/material";
+import React from "react";
+import {  TableCell, TableRow, Checkbox } from "../../modules/material";
 
 export default function KasRow({
   row,
@@ -22,7 +22,6 @@ export default function KasRow({
         </TableCell>
         {headCells.map(({ id, numeric }) => {
           const cellid = id;
-
           return <TableCell align="center">{row[cellid]}</TableCell>;
         })}
       </TableRow>

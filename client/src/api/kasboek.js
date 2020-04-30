@@ -6,7 +6,6 @@ export default {
   service: service,
   getKasboek() {
     return service.get("*").then((res) => {
-      console.log("responseeeeeeee", res);
       const kasboek = res.data;
       return kasboek;
     });
